@@ -69,6 +69,7 @@ npm install vue-image-preview
 * 图片格式不正确
 
 ## 效果展示
-*图片选择控件的具体样式需要你自定义*<br>
 ![image](https://github.com/aweiu/vue-image-preview/blob/master/example.png)
+
+*图片选择控件的具体样式需要你自定义*
 
