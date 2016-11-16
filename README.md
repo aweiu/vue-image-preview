@@ -16,7 +16,7 @@ npm install vue-image-preview
     </label>
   </image-preview>
 </template>
-<!--需要自定义图片上传控件的样式-->
+<!--需要自定义图片选择控件的样式-->
 <style>
   label {
   }
@@ -69,6 +69,6 @@ npm install vue-image-preview
 * 图片格式不正确
 
 ## 效果展示
-*图片上传控件的具体样式需要你自定义*<br>
+*图片选择控件的具体样式需要你自定义*<br>
 ![image](https://github.com/aweiu/vue-image-preview/blob/master/example.png)
 
