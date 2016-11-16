@@ -10,7 +10,7 @@ npm install vue-image-preview
 **必须在vue-cli生成的webpack模板环境中使用**<br>
 ```
 <template>
-  <image-preview :image-size="[640, 300]" image-file-size="1048576">
+  <image-preview :size="[640, 300]" file-size="1048576">
     <label>
       <input type="file" accept="image/jpeg,image/png,image/gif">
     </label>
@@ -46,11 +46,11 @@ npm install vue-image-preview
 </script>
 ```
 ## Props
-### imageSize(Array[Int, Int])
+### size(Array[Int, Int])
 用于限制选择图片的像素尺寸
 
-### imageFileSize(Number/StringNumber)
-用于限制选择图片的文件大小
+### fileSize(Number/StringNumber)
+用于限制选择图片的文件大小。单位：byte
 
 ## Events
 ### onImagePreview
@@ -65,8 +65,11 @@ npm install vue-image-preview
 ### onImagePreviewError
 图片预览失败的事件。事件参数errMsg可能为如下值：<br>
 * 请使用尺寸为{width}\*{height}的图片
-* 图片最大不能超过{imageFileSize}(MB/KB/B)
+* 图片最大不能超过{fileSize}(MB/KB/B)
 * 图片格式不正确
+
+### onImagePreviewRemove
+取消图片预览的事件。事件参数Obj和**onImagePreview**相同
 
 ## 效果展示
 ![image](https://github.com/aweiu/vue-image-preview/blob/master/example.png)

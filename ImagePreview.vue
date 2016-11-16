@@ -3,18 +3,23 @@
     <slot></slot>
     <image-preview-el :style="{left: left + 'px', top: top + 'px', width: width + 'px', height: height + 'px'}"
                       v-show="isShow">
-      <img :src="dataUrl" height="100%" width="100%" v-el:img>
+      <img :src="dataUrl" v-el:img>
       <image-preview-el-remove @click="remove(true)">×</image-preview-el-remove>
     </image-preview-el>
   </image-preview-el-wrap>
 </template>
-<style lang="less" scoped>
+<style scoped>
   image-preview-el-wrap {
     position: relative;
   }
 
   image-preview-el-wrap image-preview-el {
     position: absolute;
+  }
+
+  image-preview-el-wrap image-preview-el img {
+    height: 100% !important;
+    width: 100% !important;
   }
 
   image-preview-el-wrap image-preview-el image-preview-el-remove {
@@ -35,13 +40,12 @@
 </style>
 <script>
   // 手动注册自定义标签来消灭Unknown custom element错误警告
-  ['pop-el-wrap',
-    'pop-el',
-    'pop-el-body',
-    'pop-el-arrow']
-    .forEach(tagName => {
+  for (let tagName of ['image-preview-el-wrap', 'image-preview-el', 'image-preview-el-remove']) {
+    try {
       document.registerElement(tagName)
-    })
+    } catch (registerErr) {
+    }
+  }
 
   function getOffset (n1, n2) {
     var nr1 = n1.getBoundingClientRect()
@@ -63,7 +67,7 @@
         isShow: false
       }
     },
-    props: ['imageSize', 'imageFileSize'],
+    props: ['size', 'fileSize'],
     methods: {
       preview (file, target) {
         var self = this
@@ -71,16 +75,15 @@
         reader.readAsDataURL(file)
         reader.onload = function () {
           self.dataUrl = this.result
-          if (self.imageSize) {
+          if (self.size) {
             var img = self.$els.img
             img.style.cssText = 'height:auto;width:auto'
             img.onload = function () {
-              var imageSize = self.imageSize
-              if (this.width !== imageSize[0] || this.height !== imageSize[1]) {
+              var size = self.size
+              if (this.width !== size[0] || this.height !== size[1]) {
                 self.remove()
-                self.$dispatch('onImagePreviewError', '请使用尺寸为' + imageSize[0] + '*' + imageSize[1] + '的图片')
-              }
-              self.showImg(target)
+                self.$dispatch('onImagePreviewError', '请使用尺寸为' + size[0] + '*' + size[1] + '的图片')
+              } else self.showImg(target)
             }
           } else self.showImg(target)
         }
@@ -109,7 +112,7 @@
         this.width = rect.width
         this.height = rect.height
         this.isShow = true
-        this.$dispatch('onImagePreviewShow', {
+        this.$dispatch('onImagePreview', {
           file: this.fileInput.files[0],
           dataUrl: this.dataUrl,
           imagePreview: this
@@ -122,11 +125,11 @@
       var input = this.fileInput || (this.fileInput = label.control)
       input.addEventListener('change', function () {
         var file = this.files[0]
-        var imageFileSize = self.imageFileSize / 1
-        if (imageFileSize && file.size > imageFileSize) {
+        var fileSize = self.fileSize / 1
+        if (fileSize && file.size > fileSize) {
           var size = ['B', 'KB', 'MB']
           for (var i = 2; i > -1; i--) {
-            var formatSize = imageFileSize / Math.pow(1024, i)
+            var formatSize = (fileSize / Math.pow(1024, i))
             if (formatSize >= 1) break
           }
           self.remove()
