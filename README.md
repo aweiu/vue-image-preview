@@ -1,5 +1,5 @@
 # vue-image-preview
-本地图片预览插件
+本地图片预览组件
 
 ## 安装
 ```
@@ -55,8 +55,7 @@ npm install vue-image-preview
 
 ## Events
 ### onImagePreview
-图片预览成功的事件<br>
-**事件参数Obj**
+图片预览成功的事件。事件参数Obj：
 ```
 {
   file: 当前图片的File对象,
@@ -65,13 +64,12 @@ npm install vue-image-preview
 }
 ```
 ### onImagePreviewError
-图片预览失败的事件<br>
-**事件参数errMsg可能为如下值：**
+图片预览失败的事件。事件参数errMsg可能为如下值：<br>
 * 请使用尺寸为{width}\*{height}的图片
 * 图片最大不能超过{imageFileSize}(MB/KB/B)
 * 图片格式不正确
 
 ## 效果展示
 *图片上传控件的具体样式需要你自定义*
-![image](https://github.com/ButBueatiful/dotvim/raw/master/screenshots/vim-screenshot.jpg)
+![image](https://github.com/aweiu/vue-image-preview/master/example.png)
 

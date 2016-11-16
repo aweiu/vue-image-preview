@@ -1,0 +1,20 @@
+{
+  "name": "vue-image-preview",
+  "version": "0.0.0",
+  "description": "本地图片预览组件",
+  "keywords": [
+    "image-preview",
+    "preview",
+    "image",
+    "vue"
+  ],
+  "author": {
+    "name": "余阿伟"
+  },
+  "main": "ImagePreview.vue",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aweiu/vue-image-preview.git"
+  },
+  "license": "ISC"
+}
