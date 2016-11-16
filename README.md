@@ -8,7 +8,6 @@ npm install vue-image-preview
 ## 使用
 **VUE版本：1.x** <br>
 **必须在vue-cli生成的webpack模板环境中使用**<br>
-代码片段：
 ```
 <template>
   <image-preview :image-size="[640, 300]" image-file-size="1048576">
@@ -70,6 +69,6 @@ npm install vue-image-preview
 * 图片格式不正确
 
 ## 效果展示
-*图片上传控件的具体样式需要你自定义*
-![image](https://github.com/aweiu/vue-image-preview/master/example.png)
+*图片上传控件的具体样式需要你自定义*<br>
+![image](https://github.com/aweiu/vue-image-preview/blob/master/example.png)
 
