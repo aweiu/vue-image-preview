@@ -11,6 +11,7 @@ npm install vue-image-preview
 ```
 <template>
   <image-preview :size="[640, 300]" file-size="1048576">
+    <!--根节点必须是label-->
     <label>
       <input type="file" accept="image/jpeg,image/png,image/gif">
     </label>
