@@ -46,6 +46,9 @@ npm install vue-image-preview
   }
 </script>
 ```
+![image](https://github.com/aweiu/vue-image-preview/raw/master/example.png)
+
+*图片选择控件的具体样式需要你自定义*
 ## Props
 ### size(Array[Int, Int])
 用于限制选择图片的像素尺寸
@@ -72,8 +75,4 @@ npm install vue-image-preview
 ### onImagePreviewRemove
 取消图片预览的事件。事件参数Obj和**onImagePreview**相同
 
-## 效果展示
-![image](https://github.com/aweiu/vue-image-preview/raw/master/example.png)
-
-*图片选择控件的具体样式需要你自定义*
 
