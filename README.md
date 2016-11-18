@@ -73,7 +73,7 @@ npm install vue-image-preview
 取消图片预览的事件。事件参数Obj和**onImagePreview**相同
 
 ## 效果展示
-![image](https://github.com/aweiu/vue-image-preview/blob/master/example.png)
+![image](https://github.com/aweiu/vue-image-preview/raw/master/example.png)
 
 *图片选择控件的具体样式需要你自定义*
 
