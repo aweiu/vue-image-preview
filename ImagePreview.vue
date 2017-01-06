@@ -1,9 +1,9 @@
 <template xmlns:v-el="http://www.w3.org/1999/xhtml">
   <image-preview-el-wrap>
     <slot></slot>
-    <image-preview-el :style="{left: left + 'px', top: top + 'px', width: width + 'px', height: height + 'px'}"
-                      v-show="isShow">
-      <img :src="dataUrl" v-el:img>
+    <image-preview-el
+      :style="{left: left + 'px', top: top + 'px', width: width + 'px', height: height + 'px', backgroundImage: 'url(' + dataUrl + ')'}"
+      v-show="isShow">
       <image-preview-el-remove @click="remove(true)">×</image-preview-el-remove>
     </image-preview-el>
   </image-preview-el-wrap>
@@ -15,11 +15,15 @@
 
   image-preview-el-wrap image-preview-el {
     position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   image-preview-el-wrap image-preview-el img {
-    height: 100% !important;
-    width: 100% !important;
+    position: absolute;
+    max-height: 100%;
+    max-width: 100%;
   }
 
   image-preview-el-wrap image-preview-el image-preview-el-remove {
@@ -36,7 +40,6 @@
     right: -4px;
     cursor: pointer;
   }
-
 </style>
 <script>
   // 手动注册自定义标签来消灭Unknown custom element错误警告
@@ -76,8 +79,8 @@
         reader.onload = function () {
           self.dataUrl = this.result
           if (self.size) {
-            var img = self.$els.img
-            img.style.cssText = 'height:auto;width:auto'
+            var img = this._img || (this._img = document.createElement('img'))
+            img.src = this.result
             img.onload = function () {
               var size = self.size
               if (this.width !== size[0] || this.height !== size[1]) {
@@ -104,7 +107,6 @@
         }
       },
       showImg (target) {
-        this.$els.img.removeAttribute('style')
         var offset = getOffset(target, this.$el)
         var rect = target.getBoundingClientRect()
         this.top = offset.top

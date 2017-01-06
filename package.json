@@ -1,6 +1,6 @@
 {
   "name": "vue-image-preview",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "本地图片预览组件",
   "keywords": [
     "image-preview",
