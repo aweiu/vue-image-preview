@@ -15,9 +15,8 @@
 
   image-preview-el-wrap image-preview-el {
     position: absolute;
+    background: no-repeat center;
     background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
   }
 
   image-preview-el-wrap image-preview-el img {
