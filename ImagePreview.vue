@@ -97,11 +97,11 @@
             dataUrl: this.dataUrl,
             imagePreview: this
           })
-          this.isShow = false
-          this.dataUrl = ''
         }
         this.fileInput.file = null
         this.fileInput.value = ''
+        this.isShow = false
+        this.dataUrl = ''
       },
       showImg (target) {
         var offset = getOffset(target, this.$el)
