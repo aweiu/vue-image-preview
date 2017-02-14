@@ -91,19 +91,17 @@
         }
       },
       remove (isDispatch) {
-        if (this.dataUrl !== '') {
-          if (isDispatch) {
-            this.$dispatch('onImagePreviewRemove', {
-              file: this.fileInput.files[0],
-              dataUrl: this.dataUrl,
-              imagePreview: this
-            })
-          }
+        if (isDispatch && this.dataUrl !== '') {
+          this.$dispatch('onImagePreviewRemove', {
+            file: this.fileInput.files[0],
+            dataUrl: this.dataUrl,
+            imagePreview: this
+          })
           this.isShow = false
-          this.fileInput.file = null
-          this.fileInput.value = ''
           this.dataUrl = ''
         }
+        this.fileInput.file = null
+        this.fileInput.value = ''
       },
       showImg (target) {
         var offset = getOffset(target, this.$el)
