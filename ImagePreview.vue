@@ -69,7 +69,7 @@
         isShow: false
       }
     },
-    props: ['size', 'fileSize'],
+    props: ['size', 'fileSize', 'verify'],
     methods: {
       preview (file, target) {
         var self = this
@@ -77,27 +77,29 @@
         reader.readAsDataURL(file)
         reader.onload = function () {
           self.dataUrl = this.result
-          if (self.size) {
-            var img = this._img || (this._img = document.createElement('img'))
-            img.src = this.result
-            img.onload = function () {
-              var size = self.size
-              if (this.width !== size[0] || this.height !== size[1]) {
-                self.remove()
-                self.$dispatch('onImagePreviewError', '请使用尺寸为' + size[0] + '*' + size[1] + '的图片')
-              } else self.showImg(target)
+          var img = this._img || (this._img = document.createElement('img'))
+          img.src = this.result
+          img.onload = function () {
+            var errMsg
+            self._previewObj = {
+              file: self.fileInput.files[0],
+              width: this.width,
+              height: this.height,
+              dataUrl: self.dataUrl,
+              imagePreview: self
             }
-          } else self.showImg(target)
+            if (self.size && (this.width !== self.size[0] || this.height !== self.size[1])) {
+              self.remove()
+              self.$dispatch('onImagePreviewError', '请使用尺寸为' + self.size[0] + '*' + self.size[1] + '的图片')
+            } else if (typeof self.verify === 'function' && (errMsg = self.verify(self._previewObj))) {
+              self.remove()
+              self.$dispatch('onImagePreviewError', errMsg + '')
+            } else self.showImg(target)
+          }
         }
       },
       remove (isDispatch) {
-        if (isDispatch && this.dataUrl !== '') {
-          this.$dispatch('onImagePreviewRemove', {
-            file: this.fileInput.files[0],
-            dataUrl: this.dataUrl,
-            imagePreview: this
-          })
-        }
+        if (isDispatch && this.dataUrl !== '') this.$dispatch('onImagePreviewRemove', this._previewObj)
         this.fileInput.file = null
         this.fileInput.value = ''
         this.isShow = false
@@ -111,11 +113,7 @@
         this.width = rect.width
         this.height = rect.height
         this.isShow = true
-        this.$dispatch('onImagePreview', {
-          file: this.fileInput.files[0],
-          dataUrl: this.dataUrl,
-          imagePreview: this
-        })
+        this.$dispatch('onImagePreview', this._previewObj)
       }
     },
     ready () {
